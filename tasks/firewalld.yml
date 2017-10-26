@@ -1,0 +1,16 @@
+---
+
+# NOTE: This playbook *adds* rules.
+# It does not delete existing rules.
+
+- name: Enable firewalld
+  service: name=firewalld state=started enabled=yes
+
+- name: Open elasticsearch discovery port
+  command: firewall-cmd --permanent --add-port=9300/tcp
+
+- name: Open elasticsearch API port
+  command: firewall-cmd --permanent --add-port=9200/tcp
+
+- name: Bounce firewalld
+  service: name=firewalld state=restarted

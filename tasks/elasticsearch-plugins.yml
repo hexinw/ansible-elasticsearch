@@ -49,6 +49,10 @@
     CONF_DIR: "{{ conf_dir }}"
     ES_INCLUDE: "{{ instance_default_file }}"
 
+- debug:                                                                                                      
+  msg: "es_plugins {{ es_plugins }}, es_plugins_reinstall {{ es_plugins_reinstall }}"
+#  when: not es_plugins is none and es_plugins_reinstall
+
 - name: Install elasticsearch plugins
   become: yes
   command: "{{es_home}}/bin/elasticsearch-plugin install {{ item.plugin }} --batch --silent"
